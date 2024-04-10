@@ -29,7 +29,11 @@ return require("packer").startup(function(use)
 
     use("EdenEast/nightfox.nvim")
     use{ "catppuccin/nvim", as = "catppuccin" }
+
+    -- git
     use("lewis6991/gitsigns.nvim")
+    use("FabijanZulj/blame.nvim")
+
     use("nvim-tree/nvim-web-devicons")
     use("nvim-tree/nvim-tree.lua")
     use("nvim-lua/lsp-status.nvim")

@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/home/michalchrzanowski/.local/share/nvim/site/pack/packer/start/auto-save.nvim",
     url = "https://github.com/okuuva/auto-save.nvim"
   },
+  ["blame.nvim"] = {
+    loaded = true,
+    path = "/home/michalchrzanowski/.local/share/nvim/site/pack/packer/start/blame.nvim",
+    url = "https://github.com/FabijanZulj/blame.nvim"
+  },
   catppuccin = {
     loaded = true,
     path = "/home/michalchrzanowski/.local/share/nvim/site/pack/packer/start/catppuccin",
