@@ -1,62 +1,78 @@
-vim.cmd([[packadd packer.nvim]])
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require("packer").startup(function(use)
-    -- Packer can manage itself
-    use("wbthomason/packer.nvim")
-
-    use({
+return require("lazy").setup({
+    {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.6",
         -- or                            , branch = '0.1.x',
-        requires = { { "nvim-lua/plenary.nvim" } },
-    })
+        dependencies = { { "nvim-lua/plenary.nvim" } },
+    },
 
-    use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-    use("nvim-treesitter/playground")
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    "nvim-treesitter/playground",
     -- use({
     --     "nvim-treesitter/nvim-treesitter-textobjects",
     --     after = "nvim-treesitter"
     -- })
+    --
+    {
+        "vhyrro/luarocks.nvim",
+        priority = 1000,
+        config = true,
+        opts = {
+            rocks = { "lua-curl" },
+        },
+    },
+    "tpope/vim-commentary",
+    "tpope/vim-surround",
+    "romainl/vim-cool",
 
-    use("tpope/vim-commentary")
-    use("tpope/vim-surround")
-    use("romainl/vim-cool")
+    "christoomey/vim-tmux-navigator",
 
-    use("christoomey/vim-tmux-navigator")
+    "machakann/vim-highlightedyank",
+    "tpope/vim-repeat",
 
-    use("machakann/vim-highlightedyank")
-    use("tpope/vim-repeat")
-
-    use("EdenEast/nightfox.nvim")
-    use{ "catppuccin/nvim", as = "catppuccin" }
+    "EdenEast/nightfox.nvim",
+    { "catppuccin/nvim", name = "catppuccin" },
 
     -- git
-    use("lewis6991/gitsigns.nvim")
-    use("FabijanZulj/blame.nvim")
+    "lewis6991/gitsigns.nvim",
+    "FabijanZulj/blame.nvim",
 
-    use("nvim-tree/nvim-web-devicons")
-    use("nvim-tree/nvim-tree.lua")
-    use("nvim-lua/lsp-status.nvim")
-    use("lambdalisue/suda.vim")
+    "nvim-tree/nvim-web-devicons",
+    "nvim-tree/nvim-tree.lua",
+    "nvim-lua/lsp-status.nvim",
+    "lambdalisue/suda.vim",
 
-    use("nvim-lualine/lualine.nvim")
+    "nvim-lualine/lualine.nvim",
 
-    use("nvim-lua/plenary.nvim")
+    "nvim-lua/plenary.nvim",
 
-    use("CRAG666/code_runner.nvim")
+    "CRAG666/code_runner.nvim",
 
     -- auto closing
-    use("windwp/nvim-autopairs")
-    use("windwp/nvim-ts-autotag")
+    "windwp/nvim-autopairs",
+    "windwp/nvim-ts-autotag",
 
-    use("szw/vim-maximizer")
+    "szw/vim-maximizer",
 
-    use("okuuva/auto-save.nvim")
+    "okuuva/auto-save.nvim",
 
-    use({
+    {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
-        requires = {
+        dependencies = {
             --- Uncomment the two plugins below if you want to manage the language servers from neovim
             { "williamboman/mason.nvim" },
             { "williamboman/mason-lspconfig.nvim" },
@@ -75,5 +91,5 @@ return require("packer").startup(function(use)
             { "L3MON4D3/LuaSnip" },
             { "mhartington/formatter.nvim" },
         },
-    })
-end)
+    },
+})
