@@ -4,4 +4,4 @@ require('blame').setup({
 	end,
 })
 
-vim.keymap.set("n", "<leader>a", ":ToggleBlame virtual<CR>")
+vim.keymap.set("n", "<leader>a", ":BlameToggle <CR>")

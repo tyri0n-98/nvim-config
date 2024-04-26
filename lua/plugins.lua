@@ -47,6 +47,7 @@ return require("lazy").setup({
     { "catppuccin/nvim", name = "catppuccin" },
 
     -- git
+    "tpope/vim-fugitive",
     "lewis6991/gitsigns.nvim",
     "FabijanZulj/blame.nvim",
 
