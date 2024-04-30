@@ -10,9 +10,6 @@ end)
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guide/integrate-with-mason-nvim.md
 local lua_opts = lsp_zero.nvim_lua_ls()
 
-
-local java_config = require("config.java")
-
 require("mason").setup({})
 require("mason-lspconfig").setup({
     ensure_installed = {
@@ -28,7 +25,11 @@ require("mason-lspconfig").setup({
         "rust_analyzer",
     },
     handlers = {
-        lsp_zero.default_setup,
+        function (server_name)
+            if server_name ~= 'jdtls' then
+                require('lspconfig')[server_name].setup({})
+            end
+        end,
         require("lspconfig").lua_ls.setup(lua_opts),
         require("lspconfig").rust_analyzer.setup({
             settings = {
@@ -45,7 +46,6 @@ require("mason-lspconfig").setup({
                 },
             },
         }),
-        require("lspconfig").jdtls.setup({ java_config }),
     },
 })
 

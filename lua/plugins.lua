@@ -70,6 +70,8 @@ return require("lazy").setup({
 
     "okuuva/auto-save.nvim",
 
+    "mfussenegger/nvim-jdtls",
+
     {
         "VonHeikemen/lsp-zero.nvim",
         branch = "v3.x",
