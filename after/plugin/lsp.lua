@@ -25,27 +25,31 @@ require("mason-lspconfig").setup({
         "rust_analyzer",
     },
     handlers = {
-        function (server_name)
-            if server_name ~= 'jdtls' then
-                require('lspconfig')[server_name].setup({})
+        function(server_name)
+            if server_name ~= "jdtls" then
+                require("lspconfig")[server_name].setup({})
             end
         end,
-        require("lspconfig").lua_ls.setup(lua_opts),
-        require("lspconfig").rust_analyzer.setup({
-            settings = {
-                ["rust_analyzer"] = {
-                    cargo = {
-                        allFeatures = true,
-                    },
-                    diagnostics = {
-                        enable = true,
-                        experimental = {
+        lua_ls = function()
+            require("lspconfig").lua_ls.setup(lua_opts)
+        end,
+        rust_analyzer = function()
+            require("lspconfig").rust_analyzer.setup({
+                settings = {
+                    ["rust_analyzer"] = {
+                        cargo = {
+                            allFeatures = true,
+                        },
+                        diagnostics = {
                             enable = true,
+                            experimental = {
+                                enable = true,
+                            },
                         },
                     },
                 },
-            },
-        }),
+            })
+        end,
     },
 })
 
