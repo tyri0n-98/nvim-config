@@ -45,4 +45,21 @@ require("nvim-treesitter.configs").setup({
     },
     indent = { enable = true },
     autotag = { enable = true },
+    textobjects = {
+        select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ab"] = "@scope.outer",
+                ["ib"] = "@block.inner",
+            },
+            selection_modes = {
+                ["@block.inner"] = "v", -- charwise
+                ["@parameter.outer"] = "v", -- charwise
+                ["@function.outer"] = "V", -- linewise
+            },
+        },
+    },
 })

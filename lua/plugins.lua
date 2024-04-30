@@ -19,13 +19,13 @@ return require("lazy").setup({
         dependencies = { { "nvim-lua/plenary.nvim" } },
     },
 
+    -- treesitter
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     "nvim-treesitter/playground",
-    -- use({
-    --     "nvim-treesitter/nvim-treesitter-textobjects",
-    --     after = "nvim-treesitter"
-    -- })
-    --
+     {
+         "nvim-treesitter/nvim-treesitter-textobjects",
+         dependencies = { "nvim-treesitter" }
+     },
     {
         "vhyrro/luarocks.nvim",
         priority = 1000,
