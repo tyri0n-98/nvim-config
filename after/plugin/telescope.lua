@@ -6,3 +6,4 @@ vim.keymap.set('n', '<leader>m', builtin.marks, {})
 vim.keymap.set('n', '<leader>f', function()
 	builtin.grep_string({ search = vim.fn.input("Grep > ") });
 end)
+vim.api.nvim_set_keymap("n", "<leader>th", ":Telescope help_tags<CR>", {})

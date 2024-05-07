@@ -13,7 +13,7 @@ vim.opt.scrolloff = 8
 vim.opt.smartindent = true
 vim.opt.autoindent = true
 
-vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
+-- vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
 vim.opt.shortmess = vim.opt.shortmess + { c = true }
 vim.api.nvim_set_option("updatetime", 300)
 -- vim.wo.foldmethod = "expr"

@@ -1,6 +1,6 @@
 require("nvim-treesitter.configs").setup({
     -- A list of parser names, or "all" (the five listed parsers should always be installed)
-    ensure_installed = {
+    vnsure_installed = {
         "javascript",
         "typescript",
         "python",
@@ -16,6 +16,15 @@ require("nvim-treesitter.configs").setup({
         "xml",
         "http",
         "graphql",
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<C-space>",
+            node_incremental = "<C-space>",
+            scope_incremental = false,
+            node_decremental = "<bs>",
+        },
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -50,16 +59,65 @@ require("nvim-treesitter.configs").setup({
             enable = true,
             lookahead = true,
             keymaps = {
+                ["a="] = "@assignment.outer",
+                ["i="] = "@assignment.inner",
+                ["r="] = "@assignment.rhs",
+                ["l="] = "@assignment.lhs",
+                ["aa"] = "@parameter.outer",
+                ["ia"] = "@parameter.inner",
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
                 ["ab"] = "@scope.outer",
                 ["ib"] = "@block.inner",
+                ["ai"] = "@conditional.outer",
+                ["ii"] = "@conditional.inner",
+                ["al"] = "@loop.outer",
+                ["il"] = "@loop.inner",
             },
             selection_modes = {
-                ["@block.inner"] = "v", -- charwise
-                ["@parameter.outer"] = "v", -- charwise
-                ["@function.outer"] = "V", -- linewise
+                ["@block.inner"] = "v",
+                ["@class.inner"] = "v",
+                ["@class.outer"] = "V",
+                ["@parameter.outer"] = "v",
+                ["@function.outer"] = "v",
+            },
+        },
+        move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+                ["]M"] = "@function.outer",
+                ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+                ["[M"] = "@function.outer",
+                ["[]"] = "@class.outer",
+            },
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ["<leader>sw"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>Sw"] = "@parameter.inner",
             },
         },
     },
 })
+
+local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+
+vim.keymap.set({"n", "x", "o"}, ";", ts_repeat_move.repeat_last_move)
+vim.keymap.set({"n", "x", "o"}, ",", ts_repeat_move.repeat_last_move_opposite)
+

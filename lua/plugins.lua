@@ -95,4 +95,7 @@ return require("lazy").setup({
             { "mhartington/formatter.nvim" },
         },
     },
+    {
+        dir = "~/myplugins/first-plugin",
+    }
 })
