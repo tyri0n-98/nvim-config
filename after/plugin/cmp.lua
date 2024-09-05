@@ -8,7 +8,7 @@ cmp.setup({
         { name = "nvim_lua" },
         -- { name = "buffer" },
         { name = "path" },
-        -- { name = "vsnip" },
+        { name = "vsnip" },
         { name = "calc" },
     },
     mapping = {

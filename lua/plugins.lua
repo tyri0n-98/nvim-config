@@ -58,8 +58,6 @@ return require("lazy").setup({
 
     "nvim-lualine/lualine.nvim",
 
-    "nvim-lua/plenary.nvim",
-
     "CRAG666/code_runner.nvim",
 
     -- auto closing

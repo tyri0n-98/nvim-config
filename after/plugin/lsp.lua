@@ -13,14 +13,14 @@ local lua_opts = lsp_zero.nvim_lua_ls()
 require("mason").setup({})
 require("mason-lspconfig").setup({
     ensure_installed = {
-        "pylsp",
+        -- "pylsp",
         "jdtls",
         "helm_ls",
         "jsonls",
         "clangd",
         "bashls",
         "dockerls",
-        "eslint",
+        "pyright",
         "lua_ls",
         "rust_analyzer",
     },
@@ -50,6 +50,24 @@ require("mason-lspconfig").setup({
                 },
             })
         end,
+        pyright = function ()
+            require("lspconfig").pyright.setup({
+                settings = {
+                    pyright = {
+                        autoImportCompletion = true,
+                    },
+                    python = {
+                        analysis = {
+                            autoSearchPaths = true,
+                            diagnosticMode = 'openFilesOnly',
+                            useLibraryCodeForTypes = true,
+                            typeCheckingMode = 'off'
+                        }
+                    }
+                }
+
+            })
+        end
     },
 })
 

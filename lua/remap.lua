@@ -36,4 +36,27 @@ vim.keymap.set("n", "<leader>to", ":tabnew<CR>")
 
 vim.keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>")
 
--- Options settings
+vim.keymap.set("n", "<M-CR>", ":lua vim.lsp.buf.code_action()<CR>")
+
+-- Quickfix list mappings
+local toggle_qf = function()
+    local qf_exists = false
+    for _, win in pairs(vim.fn.getwininfo()) do
+        if win["quickfix"] == 1 then
+            qf_exists = true
+        end
+    end
+    if qf_exists then
+        vim.cmd("cclose")
+        return
+    end
+    if not vim.tbl_isempty(vim.fn.getqflist()) then
+        vim.cmd("copen")
+    else
+        print("Quickfix list empty")
+    end
+end
+
+vim.keymap.set("n", "<C-q>q", toggle_qf)
+vim.keymap.set("n", "<C-q>n", ":cnext<CR>")
+vim.keymap.set("n", "<C-q>p", ":cprev<CR>")

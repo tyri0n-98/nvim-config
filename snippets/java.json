@@ -1,0 +1,18 @@
+{
+    "sysout": {
+        "prefix": ["sout"],
+        "body": ["System.out.println($0)"],
+        "description": "System.out.println()"
+    },
+    "syserr": {
+        "prefix": ["serr"],
+        "body": ["System.err.println($0)"],
+        "description": "System.out.println()"
+    },
+    "main": {
+        "prefix": ["main"],
+        "body": ["public static void main(String[] args) {", "\t$0", "}"],
+        "description": "Public static main method"
+    }
+}
+

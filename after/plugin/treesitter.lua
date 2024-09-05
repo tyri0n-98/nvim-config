@@ -81,7 +81,9 @@ require("nvim-treesitter.configs").setup({
                 ["@class.inner"] = "v",
                 ["@class.outer"] = "V",
                 ["@parameter.outer"] = "v",
-                ["@function.outer"] = "v",
+                ["@function.outer"] = "V",
+                ["@conditional.outer"] = "V",
+                ["@conditional.inner"] = "V",
             },
         },
         move = {
@@ -121,3 +123,36 @@ local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 vim.keymap.set({"n", "x", "o"}, ";", ts_repeat_move.repeat_last_move)
 vim.keymap.set({"n", "x", "o"}, ",", ts_repeat_move.repeat_last_move_opposite)
 
+vim.filetype.add({
+    extension = {
+        lox = "lox",
+    },
+})
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+-- LOX parser
+
+local lox_path = "/home/michalchrzanowski/treesitter/tree-sitter-lox";
+
+
+parser_config.lox = {
+    install_info = {
+        url = lox_path,
+        files = { "src/parser.c" },
+        generate_requires_npm = false,
+        requires_generate_from_grammar = false,
+    },
+    filetype = "lox",
+}
+
+local nvim_config_path = "/home/michalchrzanowski/.config/nvim"
+
+vim.api.nvim_create_user_command("LoxReload", function ()
+    vim.cmd("TSUninstall lox")
+    vim.fn.mkdir(nvim_config_path .. "/queries/lox", "p")
+    local cmd = "cp -f " .. lox_path .. "/queries/highlights.scm " .. nvim_config_path .. "/queries/lox/"
+    print(cmd)
+    os.execute(cmd)
+    vim.cmd("TSInstall lox")
+end, { nargs = 0 })
